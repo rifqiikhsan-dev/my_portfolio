@@ -1,6 +1,6 @@
 import { Button } from "../../../../components/button";
 import { Card } from "../../../../components/card";
-import Profile from "../../../../assets/images/image-profile.png";
+import Profile from "../../../../../public/assets/images/image-profile.png";
 
 export const Hero = (): JSX.Element => {
   const statsData = [

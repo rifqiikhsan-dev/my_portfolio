@@ -1,7 +1,7 @@
 import { DownloadIcon } from "lucide-react";
 import { Button } from "../../../../components/button";
 import { Card, CardContent } from "../../../../components/card";
-import Profile from "../../../../assets/images/image-profile.png";
+import Profile from "../../../../../public/assets/images/image-profile.png";
 import { useState } from "react";
 
 export const About = (): JSX.Element => {
