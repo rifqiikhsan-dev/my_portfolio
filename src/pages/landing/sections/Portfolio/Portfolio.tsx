@@ -164,10 +164,10 @@ export const Portfolio = (): JSX.Element => {
             : project.category.toLowerCase().includes(activeCategory)
         );
 
-  const openDetailDialog = (project: (typeof portfolioProjects)[0]) => {
-    setSelectedProject(project);
-    setIsDetailDialogOpen(true);
-  };
+  // const openDetailDialog = (project: (typeof portfolioProjects)[0]) => {
+  //   setSelectedProject(project);
+  //   setIsDetailDialogOpen(true);
+  // };
 
   const closeDetailDialog = () => {
     setIsDetailDialogOpen(false);
@@ -211,7 +211,7 @@ export const Portfolio = (): JSX.Element => {
               className="flex flex-col bg-transparent border-0 overflow-hidden cursor-pointer"
               data-aos="fade-up"
               data-aos-delay={index * 100}
-              onClick={() => openDetailDialog(project)}
+              // onClick={() => openDetailDialog(project)}
             >
               <CardContent className="p-0">
                 <img
