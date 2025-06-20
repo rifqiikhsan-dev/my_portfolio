@@ -19,7 +19,7 @@ export const LandingPage = (): JSX.Element => {
       <img
         className="absolute w-[70%] max-w-[748px] h-auto top-[69px] left-0 z-0 opacity-20 pointer-events-none"
         alt="Vector"
-        src="/vector.svg"
+        src="/assets/icons/vector.svg"
       />
 
       <Navbar />

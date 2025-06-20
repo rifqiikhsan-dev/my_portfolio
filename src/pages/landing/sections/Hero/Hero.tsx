@@ -1,6 +1,6 @@
 import { Button } from "../../../../components/common/button";
 import { Card } from "../../../../components/common/card";
-import Profile from "../../../../../public/assets/images/image-profile.png";
+import Profile from "/assets/images/image-profile.png";
 
 export const Hero = (): JSX.Element => {
   const statsData = [
@@ -81,7 +81,7 @@ export const Hero = (): JSX.Element => {
                   className="relative w-10 h-10 bg-[#ffffff0a] rounded-full border border-[#575757] flex items-center justify-center"
                 >
                   <img
-                    src={`/assets/icons/icon-${platform}.svg`}
+                    src={`../assets/icons/icon-${platform}.svg`}
                     className="w-[22px] h-[22px]"
                     alt={`${platform} icon`}
                   />

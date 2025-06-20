@@ -204,32 +204,39 @@ export const Portfolio = (): JSX.Element => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {filteredProjects.map((project, index) => (
-            <Card
-              key={project.id}
-              className="flex flex-col bg-transparent border-0 overflow-hidden cursor-pointer"
-              data-aos="fade-up"
-              data-aos-delay={index * 100}
-              // onClick={() => openDetailDialog(project)}
-            >
-              <CardContent className="p-0">
-                <img
-                  src={project.image}
-                  className="w-full h-[240px] sm:h-[280px] md:h-[320px] lg:h-[360px] xl:h-[400px] object-cover rounded-t-xl"
-                  alt={project.alt}
-                />
-              </CardContent>
-              <CardFooter className="flex items-center justify-between p-4 bg-[#ffffff14] rounded-b-xl">
-                <div className="font-bold text-sm sm:text-base text-foundation-whitenormal-active font-lato truncate max-w-[60%]">
-                  {project.name}
-                </div>
-                <div className="font-bold text-xs sm:text-sm text-foundation-whitedark-hover font-lato text-right truncate max-w-[40%]">
-                  {project.category}
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full min-h-[200px]">
+          {filteredProjects.length === 0 ? (
+            <div className="col-span-full text-center text-foundation-whitedark-hover font-medium text-lg">
+              <span className="text-gray-500 italic">
+                No projects found for the selected category.
+              </span>
+            </div>
+          ) : (
+            filteredProjects.map((project, index) => (
+              <Card
+                key={project.id}
+                className="flex flex-col bg-transparent border-0 overflow-hidden cursor-pointer"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <CardContent className="p-0">
+                  <img
+                    src={project.image}
+                    className="w-full h-[240px] sm:h-[280px] md:h-[320px] lg:h-[360px] xl:h-[400px] object-cover rounded-t-xl"
+                    alt={project.alt}
+                  />
+                </CardContent>
+                <CardFooter className="flex items-center justify-between p-4 bg-[#ffffff14] rounded-b-xl">
+                  <div className="font-bold text-sm sm:text-base text-foundation-whitenormal-active font-lato truncate max-w-[60%]">
+                    {project.name}
+                  </div>
+                  <div className="font-bold text-xs sm:text-sm text-foundation-whitedark-hover font-lato text-right truncate max-w-[40%]">
+                    {project.category}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))
+          )}
         </div>
       </div>
 
