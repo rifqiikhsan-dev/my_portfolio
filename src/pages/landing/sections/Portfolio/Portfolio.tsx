@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Button } from "../../../../components/button";
-import { Card, CardContent, CardFooter } from "../../../../components/card";
+import { Button } from "../../../../components/common/button";
+import {
+  Card,
+  CardContent,
+  CardFooter
+} from "../../../../components/common/card";
 
-import { Dialog } from "../../../../components/dialog-simple";
+import { Dialog } from "../../../../components/common/dialog-simple";
 
 export const Portfolio = (): JSX.Element => {
   const [activeCategory, setActiveCategory] = useState<string>("all");

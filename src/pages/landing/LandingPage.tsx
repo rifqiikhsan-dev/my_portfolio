@@ -9,7 +9,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 import { Navbar } from "./sections/Navbar";
 
-export const WebPortfolio = (): JSX.Element => {
+export const LandingPage = (): JSX.Element => {
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);

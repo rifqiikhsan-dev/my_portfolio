@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent } from "../../../../components/card";
+import { Card, CardContent } from "../../../../components/common/card";
 
 const services = [
   {

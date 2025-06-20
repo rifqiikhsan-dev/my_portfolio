@@ -1,6 +1,6 @@
 import { DownloadIcon } from "lucide-react";
-import { Button } from "../../../../components/button";
-import { Card, CardContent } from "../../../../components/card";
+import { Button } from "../../../../components/common/button";
+import { Card, CardContent } from "../../../../components/common/card";
 import Profile from "../../../../../public/assets/images/image-profile.png";
 import { useState } from "react";
 

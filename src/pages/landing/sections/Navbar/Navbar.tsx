@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "../../../../components/button";
+import { Button } from "../../../../components/common/button";
 
 const navItems = [
   { id: "header", label: "Home" },

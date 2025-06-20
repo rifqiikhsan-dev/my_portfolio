@@ -61,7 +61,7 @@ export const Dialog: React.FC<DialogProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
       <div
         ref={dialogRef}
-        className={`bg-white rounded-lg shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative
+        className={` rounded-lg shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 relative
           transform transition-all duration-300 ease-out scale-95 opacity-0 ${
             isOpen ? "scale-100 opacity-100" : ""
           }

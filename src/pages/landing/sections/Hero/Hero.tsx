@@ -1,5 +1,5 @@
-import { Button } from "../../../../components/button";
-import { Card } from "../../../../components/card";
+import { Button } from "../../../../components/common/button";
+import { Card } from "../../../../components/common/card";
 import Profile from "../../../../../public/assets/images/image-profile.png";
 
 export const Hero = (): JSX.Element => {

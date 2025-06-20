@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import { Button } from "../../../../components/button";
-import { Input } from "../../../../components/input";
+import { Button } from "../../../../components/common/button";
+import { Input } from "../../../../components/common/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "../../../../components/select";
-import { Textarea } from "../../../../components/textarea";
+} from "../../../../components/common/select";
+import { Textarea } from "../../../../components/common/textarea";
 
 export const Contact = (): JSX.Element => {
   const services = [

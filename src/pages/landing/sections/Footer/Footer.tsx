@@ -3,7 +3,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList
-} from "../../../../components/navigation-menu";
+} from "../../../../components/common/navigation-menu";
 
 export const Footer = (): JSX.Element => {
   const navItems = [
