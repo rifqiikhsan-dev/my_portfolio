@@ -9,11 +9,16 @@ import {
 import { Dialog } from "../../../../components/common/dialog-simple";
 
 export const Portfolio = (): JSX.Element => {
+  const INITIAL_DISPLAY_COUNT = 3;
+
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<
     (typeof portfolioProjects)[0] | null
   >(null);
+  const [visibleCount, setVisibleCount] = useState<number>(
+    INITIAL_DISPLAY_COUNT
+  );
 
   const filterCategories = [
     { id: "all", name: "All" },
@@ -164,10 +169,7 @@ export const Portfolio = (): JSX.Element => {
             : project.category.toLowerCase().includes(activeCategory)
         );
 
-  // const openDetailDialog = (project: (typeof portfolioProjects)[0]) => {
-  //   setSelectedProject(project);
-  //   setIsDetailDialogOpen(true);
-  // };
+  const displayedProjects = filteredProjects.slice(0, visibleCount);
 
   const closeDetailDialog = () => {
     setIsDetailDialogOpen(false);
@@ -191,7 +193,10 @@ export const Portfolio = (): JSX.Element => {
           {filterCategories.map((category) => (
             <Button
               key={category.id}
-              onClick={() => setActiveCategory(category.id)}
+              onClick={() => {
+                setActiveCategory(category.id);
+                setVisibleCount(INITIAL_DISPLAY_COUNT);
+              }}
               variant={activeCategory === category.id ? "default" : "outline"}
               className={`px-5 sm:px-8 py-2.5 rounded-lg font-semibold text-sm sm:text-base tracking-wide transition-all duration-300 ${
                 activeCategory === category.id
@@ -205,14 +210,14 @@ export const Portfolio = (): JSX.Element => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full min-h-[200px]">
-          {filteredProjects.length === 0 ? (
+          {displayedProjects.length === 0 ? (
             <div className="col-span-full text-center text-foundation-whitedark-hover font-medium text-lg">
               <span className="text-gray-500 italic">
                 No projects found for the selected category.
               </span>
             </div>
           ) : (
-            filteredProjects.map((project, index) => (
+            displayedProjects.map((project, index) => (
               <Card
                 key={project.id}
                 className="flex flex-col bg-transparent border-0 overflow-hidden cursor-pointer"
@@ -238,6 +243,19 @@ export const Portfolio = (): JSX.Element => {
             ))
           )}
         </div>
+
+        {filteredProjects.length > visibleCount && (
+          <div className="flex justify-center ">
+            <Button
+              data-aos="fade-up"
+              data-aos-delay="100"
+              onClick={() => setVisibleCount((prev) => prev + 3)}
+              className="px-10 py-5 font-semibold text-white text-[16px] bg-blue-600 hover:bg-blue-700 rounded-lg"
+            >
+              Load More Projects
+            </Button>
+          </div>
+        )}
       </div>
 
       {isDetailDialogOpen && selectedProject && (

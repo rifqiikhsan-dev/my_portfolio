@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,6 +7,12 @@ import {
 } from "../../../../components/common/navigation-menu";
 
 export const Footer = (): JSX.Element => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const socialLinks = [
+    { platform: "instagram", url: "https://www.instagram.com/rifqiikhsan19_/" },
+    { platform: "facebook", url: "https://facebook.com/rifqiikhsan" },
+    { platform: "linkedin", url: "https://linkedin.com/in/rifqiikhsan" }
+  ];
   const navItems = [
     { id: "header", label: "Home" },
     { id: "services", label: "Services" },
@@ -49,19 +56,27 @@ export const Footer = (): JSX.Element => {
 
       <div className="w-full max-w-[1277px] flex flex-col items-center gap-8">
         <div className="flex justify-center items-center gap-4">
-          {["instagram", "facebook", "linkedin"].map((platform, idx) => (
-            <div
-              key={idx}
-              className="w-10 h-10 bg-[#ffffff0a] rounded-full border border-[#575757] flex items-center justify-center"
+          {socialLinks.map(({ platform, url }, i) => (
+            <a
+              key={i}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={platform}
+              className="relative w-10 h-10 hover:bg-blue-600 bg-[#ffffff0a] rounded-full border border-[#575757] flex items-center justify-center transition-colors duration-200"
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
               <img
-                src={`/assets/icons/icon-${platform}.svg`}
-                className={`w-[22px] ${
-                  platform === "linkedin" ? "h-[24px]" : "h-[22px]"
-                }`}
+                src={
+                  hoveredIndex === i
+                    ? `../assets/icons/icon-${platform}-white.svg`
+                    : `../assets/icons/icon-${platform}.svg`
+                }
                 alt={`${platform} icon`}
+                className="w-[22px] h-[22px] transition duration-200"
               />
-            </div>
+            </a>
           ))}
         </div>
 

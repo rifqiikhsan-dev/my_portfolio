@@ -16,10 +16,9 @@ body {
   --color-neutral-light: rgba(223, 223, 223, 1);
   --color-neutral-normal: rgba(198, 198, 198, 1);
   --color-neutral-medium: rgba(186, 186, 186, 1);
-  --color-neutral-dark: rgba(149, 149, 149, 1);
-  --color-neutral-darker: rgba(112, 112, 112, 1);
-  --color-neutral-darkest: rgba(87, 87, 87, 1);
-
+  --color-neutral-dark: rgb(212, 210, 210);
+  --color-neutral-darker: rgb(201, 201, 201);
+  --color-neutral-darkest: rgb(180, 180, 180);
   --color-primary-brand: rgba(118, 145, 255, 1);
 }
 
@@ -33,7 +32,7 @@ body {
     --foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: rgb(123, 131, 144);
 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
@@ -66,7 +65,7 @@ body {
     --foreground: 213 31% 91%;
 
     --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted-foreground: rgb(123, 131, 144);
 
     --accent: 216 34% 17%;
     --accent-foreground: 210 40% 98%;

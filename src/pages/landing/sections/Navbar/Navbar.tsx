@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../../../components/common/button";
 
 const navItems = [
-  { id: "header", label: "Home" },
+  { id: "hero", label: "Home" },
   { id: "services", label: "Services" },
   { id: "about", label: "About me" },
   { id: "portfolio", label: "Portfolio" },
@@ -12,7 +12,7 @@ const navItems = [
 export const Navbar = (): JSX.Element => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("header");
+  const [activeSection, setActiveSection] = useState<string>("hero");
 
   const handleNavItemClick = (id: string) => {
     const el = document.getElementById(id);

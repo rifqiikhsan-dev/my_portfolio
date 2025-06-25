@@ -1,43 +1,49 @@
+import { useEffect, useRef, useState } from "react";
 import { DownloadIcon } from "lucide-react";
 import { Button } from "../../../../components/common/button";
 import { Card, CardContent } from "../../../../components/common/card";
 import Profile from "../../../../../public/assets/images/image-profile.png";
-import { useState } from "react";
 
 export const About = (): JSX.Element => {
-  const fullText = `Hello! I'm Rifqi Ikhsan Rizkillah, a passionate Frontend Web & Mobile Developer with 2 years of professional experience. I'm creating responsive, user-friendly, and visually appealing applications that deliver seamless experiences across devices. My journey in development started with a strong foundation in HTML, CSS, and JavaScript, and has since expanded to modern frameworks like React, and Flutter. I enjoy bridging the gap between design and functionality by turning creative concepts into clean, efficient, and maintainable code. Throughout my career, I've worked on diverse projects ranging from corporate websites to mobile apps, always prioritizing usability and performance. I'm dedicated to staying up-to-date with the latest technologies and best practices to ensure that my work not only meets but exceeds client and user expectations. In this portfolio, you'll find examples of my work that showcase my skills in frontend architecture, UI/UX collaboration, and problem-solving. I'm eager to continue growing as a developer and to contribute to projects that challenge me and inspire innovation.`;
-
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const skillsRef = useRef<HTMLDivElement | null>(null);
+  const [startAnimation, setStartAnimation] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const fullText = `Hello! I'm Rifqi Ikhsan Rizkillah, a passionate Frontend Web & Mobile Developer with 2 years of professional experience. I'm creating responsive, user-friendly, and visually appealing applications that deliver seamless experiences across devices. My journey in development started with a strong foundation in HTML, CSS, and JavaScript, and has since expanded to modern frameworks like React, and Flutter. I enjoy bridging the gap between design and functionality by turning creative concepts into clean, efficient, and maintainable code. Throughout my career, I've worked on diverse projects ranging from corporate websites to mobile apps, always prioritizing usability and performance. I'm dedicated to staying up-to-date with the latest technologies and best practices to ensure that my work not only meets but exceeds client and user expectations. In this portfolio, you'll find examples of my work that showcase my skills in frontend architecture, UI/UX collaboration, and problem-solving. I'm eager to continue growing as a developer and to contribute to projects that challenge me and inspire innovation.`;
 
   const midpoint = Math.floor(fullText.length / 2);
   const firstHalf = fullText.slice(0, midpoint);
+
   const skills = [
-    {
-      name: "Figma",
-      percentage: "80",
-      icon: "/assets/icons/icon-figma.svg"
-    },
-    {
-      name: "VS Code",
-      percentage: "90",
-      icon: "/assets/icons/icon-vscode.svg"
-    },
-    {
-      name: "Flutter",
-      percentage: "85",
-      icon: "/assets/icons/icon-flutter.svg"
-    },
-    {
-      name: "React JS",
-      percentage: "60",
-      icon: "/assets/icons/icon-react.svg"
-    },
+    { name: "Figma", percentage: 80, icon: "/assets/icons/icon-figma.svg" },
+    { name: "VS Code", percentage: 90, icon: "/assets/icons/icon-vscode.svg" },
+    { name: "Flutter", percentage: 85, icon: "/assets/icons/icon-flutter.svg" },
+    { name: "React JS", percentage: 60, icon: "/assets/icons/icon-react.svg" },
     {
       name: "Tailwind CSS",
-      percentage: "70",
+      percentage: 70,
       icon: "/assets/icons/icon-tailwindcss.svg"
     }
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartAnimation(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    if (skillsRef.current) {
+      observer.observe(skillsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleDownloadCV = () => {
     const link = document.createElement("a");
@@ -49,6 +55,7 @@ export const About = (): JSX.Element => {
   return (
     <section
       id="about"
+      ref={aboutRef}
       className="flex flex-col items-center gap-8 md:gap-10 w-full px-4 sm:px-6 md:px-8 lg:px-10 xl:px-20"
     >
       <header
@@ -114,9 +121,25 @@ export const About = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex w-full flex-wrap items-start justify-center sm:justify-between gap-4 sm:gap-6">
+        <div
+          ref={skillsRef}
+          className="flex w-full flex-wrap items-start justify-center sm:justify-between gap-4 sm:gap-6"
+        >
           {skills.map((skill, index) => {
-            const degree = (parseInt(skill.percentage) / 100) * 360;
+            const [progress, setProgress] = useState(0);
+
+            useEffect(() => {
+              if (!startAnimation) return;
+              let current = 0;
+              const interval = setInterval(() => {
+                current += 1;
+                setProgress(current);
+                if (current >= skill.percentage) clearInterval(interval);
+              }, 30);
+              return () => clearInterval(interval);
+            }, [startAnimation]);
+
+            const degree = (progress / 100) * 360;
 
             return (
               <Card
@@ -145,7 +168,7 @@ export const About = (): JSX.Element => {
                   </div>
                   <div className="flex flex-col items-center gap-1 sm:gap-2 mt-4 sm:mt-6">
                     <div className="bg-gradient-to-r from-[#4E71FF] to-[#5409DA] bg-clip-text text-xl sm:text-2xl md:text-3xl font-bold text-transparent">
-                      {skill.percentage}%
+                      {progress}%
                     </div>
                     <div className="font-bold text-foundation-whitedark-hover text-lg sm:text-xl md:text-2xl font-lato text-center">
                       {skill.name}

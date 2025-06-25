@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Button } from "../../../../components/common/button";
 import { Card } from "../../../../components/common/card";
 import Profile from "/assets/images/image-profile.png";
 
 export const Hero = (): JSX.Element => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const statsData = [
     { value: "2+", label: "Experiences" },
     { value: "15+", label: "Project done" },
@@ -31,7 +34,7 @@ export const Hero = (): JSX.Element => {
 
   return (
     <div
-      id="Hero"
+      id="hero"
       className="flex flex-col items-center gap-10 px-4 sm:px-6 md:px-10 lg:px-20"
     >
       <div
@@ -78,12 +81,18 @@ export const Hero = (): JSX.Element => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={platform}
-                  className="relative w-10 h-10 bg-[#ffffff0a] rounded-full border border-[#575757] flex items-center justify-center"
+                  className="relative w-10 h-10 hover:bg-blue-600 bg-[#ffffff0a] rounded-full border border-[#575757] flex items-center justify-center transition-colors duration-200"
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                 >
                   <img
-                    src={`../assets/icons/icon-${platform}.svg`}
-                    className="w-[22px] h-[22px]"
+                    src={
+                      hoveredIndex === i
+                        ? `../assets/icons/icon-${platform}-white.svg`
+                        : `../assets/icons/icon-${platform}.svg`
+                    }
                     alt={`${platform} icon`}
+                    className="w-[22px] h-[22px] transition duration-200"
                   />
                 </a>
               ))}

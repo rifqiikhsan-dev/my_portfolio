@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Button } from "../../../../components/common/button";
 import { Input } from "../../../../components/common/input";
@@ -20,32 +20,66 @@ export const Contact = (): JSX.Element => {
     "Other"
   ];
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    timeline: "",
-    projectDetails: ""
-  });
+  const getInitialFormData = () => {
+    const stored = sessionStorage.getItem("contactFormData");
+    return stored
+      ? JSON.parse(stored)
+      : {
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          timeline: "",
+          projectDetails: ""
+        };
+  };
+
+  const [formData, setFormData] = useState(getInitialFormData);
 
   const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
+    const updated = {
+      ...formData,
       [field]: value
-    }));
+    };
+    setFormData(updated);
+    sessionStorage.setItem("contactFormData", JSON.stringify(updated));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const isComplete = Object.values(formData).every(
-      (val) => val.trim() !== ""
+      (val) => typeof val === "string" && val.trim() !== ""
     );
+
     if (!isComplete) {
       alert("Please fill in all fields.");
       return;
     }
-    console.log("Submitted data:", formData);
+
+    const message = `Halo Rifqi Ikhsan,
+
+Saya ingin mendiskusikan proyek dengan rincian sebagai berikut:
+
+Nama: ${formData.name}
+Email: ${formData.email}
+Nomor HP: ${formData.phone}
+Layanan yang dibutuhkan: ${formData.service.replace(/-/g, " ")}
+Perkiraan timeline: ${formData.timeline}
+
+Detail proyek:
+${formData.projectDetails}
+
+Silakan hubungi saya kembali jika ada hal yang perlu dikonfirmasi.
+
+Terima kasih.`;
+
+    const whatsappUrl = `https://wa.me/6289629814773?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+
+    sessionStorage.removeItem("contactFormData");
   };
 
   return (
@@ -107,24 +141,43 @@ export const Contact = (): JSX.Element => {
             />
           </div>
           <div className="w-full md:w-1/2">
-            <Select
-              onValueChange={(val) => handleChange("service", val)}
-              value={formData.service}
-            >
-              <SelectTrigger className="px-6 py-3.5 h-auto bg-[#ffffff0a] rounded-lg font-lato font-medium text-foundation-whitedark-hover text-base tracking-[0.48px]">
-                <SelectValue placeholder="Service Of Interest" />
-              </SelectTrigger>
-              <SelectContent className="bg-[#3f3f3f] rounded-lg font-lato font-medium text-foundation-whitedark-hover text-base tracking-[0.48px]">
+            {process.env.NODE_ENV === "test" ? (
+              <select
+                value={formData.service}
+                onChange={(e) => handleChange("service", e.target.value)}
+                className="px-6 py-3.5 h-auto bg-[#ffffff0a] rounded-lg font-lato font-medium text-foundation-whitedark-hover text-base tracking-[0.48px]"
+                data-testid="service-select"
+              >
+                <option value="">Service Of Interest</option>
                 {services.map((service) => (
-                  <SelectItem
+                  <option
                     key={service}
                     value={service.toLowerCase().replace(/\s+/g, "-")}
                   >
                     {service}
-                  </SelectItem>
+                  </option>
                 ))}
-              </SelectContent>
-            </Select>
+              </select>
+            ) : (
+              <Select
+                onValueChange={(val) => handleChange("service", val as string)}
+                value={formData.service}
+              >
+                <SelectTrigger className="px-6 py-3.5 h-auto bg-[#ffffff0a] rounded-lg font-lato font-medium text-foundation-whitedark-hover text-base tracking-[0.48px]">
+                  <SelectValue placeholder="Service Of Interest" />
+                </SelectTrigger>
+                <SelectContent className="bg-[#3f3f3f] rounded-lg font-lato font-medium text-foundation-whitedark-hover text-base tracking-[0.48px]">
+                  {services.map((service) => (
+                    <SelectItem
+                      key={service}
+                      value={service.toLowerCase().replace(/\s+/g, "-")}
+                    >
+                      {service}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
         </div>
 
@@ -158,8 +211,7 @@ export const Contact = (): JSX.Element => {
         >
           <Button
             type="submit"
-            variant="outline"
-            className="px-10 py-3 rounded-lg border-2 border-[#959595] bg-transparent font-lato font-bold text-xl text-foundation-whitedark-hover tracking-[0.60px]"
+            className="px-8 py-3 rounded-lg bg-gradient-to-r from-[#4E71FF] to-[#5409DA] text-white text-base md:text-xl font-bold w-full md:w-auto hover:scale-105 hover:shadow-lg"
           >
             Send
           </Button>
