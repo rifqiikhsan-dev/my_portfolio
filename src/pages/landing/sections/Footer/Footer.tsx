@@ -14,7 +14,7 @@ export const Footer = (): JSX.Element => {
     { platform: "linkedin", url: "https://linkedin.com/in/rifqiikhsan" }
   ];
   const navItems = [
-    { id: "header", label: "Home" },
+    { id: "hero", label: "Home" },
     { id: "services", label: "Services" },
     { id: "about", label: "About me" },
     { id: "portfolio", label: "Portfolio" },
